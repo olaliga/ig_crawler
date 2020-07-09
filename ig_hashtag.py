@@ -14,6 +14,8 @@ complete = []
 
 # hashtag
 # for i in range(len(city)):
+username = str(input("username for login:"))
+password = str(input("password for login:"))
 
 def need_to_crawler(i):
     url1 = 'https://www.instagram.com/explore/tags/'
@@ -21,8 +23,13 @@ def need_to_crawler(i):
     urls = url1 + url2
     url3 = '?__a=1'
     url = urls + url3
-    r = requests.get(url)
-    end_cursor_data = json.loads(r.text[11:len(r.text) - 1])
+    i = 0
+    try:
+        r = requests.get(url)
+        end_cursor_data = json.loads(r.text[11:len(r.text) - 1])
+    except:
+        r = fun.login(url, username, password)
+        end_cursor_data = json.loads(r[95:len(r)-21])
     total_count = end_cursor_data['hashtag']['edge_hashtag_to_media']['count']
     page_info = end_cursor_data['hashtag']['edge_hashtag_to_media']['page_info']
     edges = end_cursor_data['hashtag']['edge_hashtag_to_media']['edges']
@@ -34,7 +41,6 @@ def need_to_crawler(i):
     query_para = {'query_hash': '7dabc71d3e758b1ec19ffb85639e427b',
                   'variables': json.dumps(variables)
                   }
-
     while len(edges) < total_count:
     # while len(edges) < 100:
         try:
