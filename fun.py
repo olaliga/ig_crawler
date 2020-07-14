@@ -23,25 +23,24 @@ def crawler(url,param = None):  # ,cookie):
     driver.close() # , cookies = cookie)
     return back
 
+
+# url = https://www.instagram.com/accounts/login/?next=/explore/tags/%25E5%259F%25BA%25E9%259A%2586%25E6%2599%25AF%25E9%25BB%259E/%3F__a%3D1
 def login(url,username,password):
     chromedriver = '/usr/local/bin/chromedriver'
-    driver = webdriver.Chrome(chromedriver,options=options)
+    driver = webdriver.Chrome(chromedriver, options=options)
     driver.get(url)  # 前往這個網址
-    wait = WebDriverWait(driver, 10)
-    second_page_flag = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "KPnG0")))  # util login page appear
     e = driver.find_element(By.NAME, "username")
     e.send_keys(username)
     e = driver.find_element(By.NAME, "password")
     time.sleep(5)
     e.send_keys(password)
-    time.sleep(5)
-    e = driver.find_element(By.CLASS_NAME, "sqdOP.L3NKy.y3zKF")
+    e = driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/section[1]/main[1]/div[1]/article[1]/div[1]/div[1]/div[1]/form[1]/div[4]/button[1]")
     e.click()
     time.sleep(5) # util page appear
-    e = driver.find_element(By.CLASS_NAME, "sqdOP.yWX7d.y3zKF")
+    e = driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/section[1]/main[1]/div[1]/div[1]/div[1]/div[1]/button[1]")
     e.click()
     back = driver.page_source
-    driver.close() # , cookies = cookie)
+    driver.close()
     return back
 
 

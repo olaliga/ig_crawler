@@ -19,17 +19,17 @@ password = str(input("password for login:"))
 
 def need_to_crawler(i):
     url1 = 'https://www.instagram.com/explore/tags/'
-    url2 = city[i] + '景點' + '/'  # for
+    url2 = city[i] + '景點' + '/'
     urls = url1 + url2
     url3 = '?__a=1'
     url = urls + url3
-    i = 0
     try:
         r = requests.get(url)
-        end_cursor_data = json.loads(r.text[11:len(r.text) - 1])
+        end_cursor_data = json.loads(r.text[r.text.find('{', r.text.find('{')+1):r.text.rfind('}')])
+
     except:
         r = fun.login(url, username, password)
-        end_cursor_data = json.loads(r[95:len(r)-21])
+        end_cursor_data = json.loads(r[r.find('{', r.find('{')+1):r.rfind('}')])
     total_count = end_cursor_data['hashtag']['edge_hashtag_to_media']['count']
     page_info = end_cursor_data['hashtag']['edge_hashtag_to_media']['page_info']
     edges = end_cursor_data['hashtag']['edge_hashtag_to_media']['edges']
@@ -42,7 +42,6 @@ def need_to_crawler(i):
                   'variables': json.dumps(variables)
                   }
     while len(edges) < total_count:
-    # while len(edges) < 100:
         try:
             r_new = requests.get('https://www.instagram.com/graphql/query', query_para)
             page_data_new = json.loads(r_new.text)
