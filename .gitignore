@@ -1,7 +1,0 @@
-.DS_Store
-*.swp
-log/*.log
-__pycache__
-venv
-.gitignore
-.idea
