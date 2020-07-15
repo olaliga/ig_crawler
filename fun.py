@@ -29,6 +29,7 @@ def login(url,username,password):
     chromedriver = '/usr/local/bin/chromedriver'
     driver = webdriver.Chrome(chromedriver, options=options)
     driver.get(url)  # 前往這個網址
+    time.sleep(5)
     e = driver.find_element(By.NAME, "username")
     e.send_keys(username)
     e = driver.find_element(By.NAME, "password")
