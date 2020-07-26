@@ -99,8 +99,12 @@ for k in range(len(city_list)):
             except:
                 time.sleep(2)
         a = np.array(edges)
-        np.save('ig' + location_name + '.npy', a)
+        data = json.dumps(a.tolist())
+        with open("ig" + location_list[i]['name'] + ".json", "w") as outfile:
+            outfile.write(data)
+        #np.save('ig' + location_name + '.npy', a)
         complete.append(len(edges) / total_count)
+        #complete.append(len(edges) / 100)
 
     print("CPU核心數:{}".format(mp.cpu_count()))
     print('當前母程序: {}'.format(os.getpid()))

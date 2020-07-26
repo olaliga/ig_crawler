@@ -55,8 +55,12 @@ def need_to_crawler(i):
         except:
             time.sleep(2)
         a = np.array(edges)
-        np.save('ig' + city[i] + '.npy', a)
+        data = json.dumps(a.tolist())
+        with open("ig" + city[i] + ".json", "w") as outfile:
+            outfile.write(data)
+        #np.save('ig' + city[i] + '.npy', a)
         complete.append(len(edges) / total_count)
+
 
 
 print("CPU核心數:{}".format(mp.cpu_count()))
